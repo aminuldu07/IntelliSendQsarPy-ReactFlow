@@ -2,8 +2,18 @@ from fastapi import FastAPI, Query
 from functions.get_compile_data import get_compile_data
 from pydantic import BaseModel
 from typing import Optional
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],  # You can use ["*"] for testing
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 class CompileDataRequest(BaseModel):
     studyid: str
